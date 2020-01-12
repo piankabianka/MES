@@ -6,116 +6,70 @@ using namespace std;
 struct UniversalElement {
 	double ksi;
 	double eta;
-	double interval[2];
-	double integralPoints[2];			// 2-point integral scheme
+
+	double weight[2];
+	double integralPoints[2];
+
 	double shapeFunctionsMatrix[4][4];
-	double ksiDerivativeMatrix[4][4];		// dN/dKsi
-	double etaDerivativeMatrix[4][4];		//dN/dEta
-
-	double returnKsi(int number);
-	double returnEta(int number);
-
-	double calculateShapeFunctionsMatrixValue(double ksi, double eta, int number);
-	double calculateKsiDerivativeMatrixValue(double eta, int number);
-	double calculateEtaDerivativeMatrixValue(double ksi, int number);
+	double dNdKsiDerivativeMatrix[4][4];
+	double dNdEtaDerivativeMatrix[4][4];
 
 	void showShapeFunctionsMatrix();
-	void showKsiDerivativeMatrix();
-	void showEtaDerivativeMatrix();
-
+	void showdNdKsiDerivativeMatrix();
+	void showdNdEtaDerivativeMatrix();
+	
 	UniversalElement();
 };
 
-
-
 UniversalElement::UniversalElement() {
-	interval[0] = -1;
-	interval[1] = 1;
+	weight[0] = -1;
+	weight[1] = 1;
 
 	integralPoints[0] = -1 / sqrt(3);
 	integralPoints[1] = 1 / sqrt(3);
 
-	ksi = 0;
-	eta = 0;
+	for (int i = 0; i < 4; i++) {
+		if (i == 0) {
+			ksi = integralPoints[0];
+			eta = integralPoints[0];
+		}
+		else if (i == 1) {
+			ksi = integralPoints[1];
+			eta = integralPoints[0];
+		}
+		else if (i == 2) {
+			ksi = integralPoints[1];
+			eta = integralPoints[1];
+		}
+		else if (i == 3) {
+			ksi = integralPoints[0];
+			eta = integralPoints[1];
+		}
+
+		shapeFunctionsMatrix[i][0]= (0.25 * (1 - ksi) * (1 - eta));
+		shapeFunctionsMatrix[i][1] = (0.25 * (1 + ksi) * (1 - eta));
+		shapeFunctionsMatrix[i][2] = (0.25 * (1 + ksi) * (1 + eta));
+		shapeFunctionsMatrix[i][3] = (0.25 * (1 - ksi) * (1 + eta));
+
+		dNdKsiDerivativeMatrix[i][0]= (-0.25 * (1 - eta));
+		dNdKsiDerivativeMatrix[i][1] = (0.25 * (1 - eta));
+		dNdKsiDerivativeMatrix[i][2] = (0.25 * (1 + eta));
+		dNdKsiDerivativeMatrix[i][3] = (-0.25 * (1 + eta));
+
+		dNdEtaDerivativeMatrix[i][0] = (-0.25 * (1 - ksi));
+		dNdEtaDerivativeMatrix[i][1] = (-0.25 * (1 + ksi));
+		dNdEtaDerivativeMatrix[i][2] = (0.25 * (1 + ksi));
+		dNdEtaDerivativeMatrix[i][3] = (0.25 * (1 - ksi));
+
+	}
 
 	for (int i = 0; i < 4; i++) {
-		
-		ksi = returnKsi(i);
-		eta = returnEta(i);
-
 		for (int j = 0; j < 4; j++) {
-			shapeFunctionsMatrix[i][j] = calculateShapeFunctionsMatrixValue(ksi, eta, j + 1);
-			ksiDerivativeMatrix[i][j] = calculateKsiDerivativeMatrixValue(eta, j + 1);
-			etaDerivativeMatrix[i][j] = calculateEtaDerivativeMatrixValue(ksi, j + 1);
+			cout << dNdEtaDerivativeMatrix[i][j] << "\t";
 		}
+		cout << endl;
 	}
 
-	
-}
-
-double UniversalElement::returnKsi(int number) {
-	if (number == 1 || number==4) {
-		return integralPoints[0];
-	}
-	else {
-		return integralPoints[1];
-	}
-	
-}
-
-double UniversalElement::returnEta(int number) {
-	if (number == 1 || number == 2) {
-		return integralPoints[0];
-	}
-	else {
-		return integralPoints[1];
-	}
-
-}
-
-double UniversalElement::calculateShapeFunctionsMatrixValue(double ksi, double eta, int number) {
-	if (number == 1) {
-		return (0.25*(1 - ksi)*(1 - eta));
-	}
-	else if (number == 2) {
-		return (0.25*(1 + ksi)*(1 - eta));
-	}
-	else if (number == 3) {
-		return (0.25*(1 + ksi)*(1 + eta));
-	}
-	else {
-		return (0.25*(1 - ksi)*(1 + eta));
-	}
-}
-
-double UniversalElement::calculateKsiDerivativeMatrixValue(double eta, int number) {
-	if (number == 1) {
-		return (-0.25*(1 - eta));
-	}
-	else if (number == 2) {
-		return (0.25*(1 - eta));
-	}
-	else if (number == 3) {
-		return (0.25*(1 + eta));
-	}
-	else {
-		return (-0.25*(1 + eta));
-	}
-}
-
-double UniversalElement::calculateEtaDerivativeMatrixValue(double ksi, int number) {
-	if (number == 1) {
-		return (-0.25*(1 - ksi));
-	}
-	else if (number == 2) {
-		return (-0.25*(1 + ksi));
-	}
-	else if (number == 3) {
-		return (0.25*(1 + ksi));
-	}
-	else {
-		return (0.25*(1 - ksi));
-	}
 }
 
 void UniversalElement::showShapeFunctionsMatrix(){
@@ -129,23 +83,23 @@ void UniversalElement::showShapeFunctionsMatrix(){
 	}
 }
 
-void UniversalElement::showKsiDerivativeMatrix() {
+void UniversalElement::showdNdKsiDerivativeMatrix() {
 	cout << "----------------------------" << endl;
 	cout << "KSI DERIVATIVE MATRIX:\n" << endl;
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			cout << ksiDerivativeMatrix[i][j] << "\t";
+			cout << dNdKsiDerivativeMatrix[i][j] << "\t";
 		}
 		cout << endl;
 	}
 }
 
-void UniversalElement::showEtaDerivativeMatrix() {
+void UniversalElement::showdNdEtaDerivativeMatrix() {
 	cout << "----------------------------" << endl;
 	cout << "ETA DERIVATIVE MATRIX:\n" << endl;
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			cout << etaDerivativeMatrix[i][j] << "\t";
+			cout << dNdEtaDerivativeMatrix[i][j] << "\t";
 		}
 		cout << endl;
 	}
