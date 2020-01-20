@@ -17,10 +17,3 @@ struct Element {
 	Element();
 };
 
-Element::Element() {
-	elementID = 0;
-	nodesIDtab[0] =  0;
-	nodesIDtab[1] = 0;
-	nodesIDtab[2] = 0;
-	nodesIDtab[3] = 0;
-}

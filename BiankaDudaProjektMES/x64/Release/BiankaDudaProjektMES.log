@@ -1,0 +1,35 @@
+﻿  stdafx.cpp
+  BiankaDudaProjektMES.cpp
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(242): warning C4101: "dNdXP4": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(240): warning C4101: "dNdXP2": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(239): warning C4101: "dNdXP1": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(245): warning C4101: "dNdYP2": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(246): warning C4101: "dNdYP3": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(244): warning C4101: "dNdYP1": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(241): warning C4101: "dNdXP3": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\hp\desktop\biankadudaprojektmes\biankadudaprojektmes\Grid.cpp(247): warning C4101: "dNdYP4": lokalna zmienna, do której nie istnieje odwołanie
+  Grid.cpp
+Grid.cpp(242): warning C4101: "dNdXP4": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(240): warning C4101: "dNdXP2": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(239): warning C4101: "dNdXP1": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(245): warning C4101: "dNdYP2": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(246): warning C4101: "dNdYP3": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(244): warning C4101: "dNdYP1": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(241): warning C4101: "dNdXP3": lokalna zmienna, do której nie istnieje odwołanie
+Grid.cpp(247): warning C4101: "dNdYP4": lokalna zmienna, do której nie istnieje odwołanie
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl Grid::calculateVectorsForEveryIntegrationPoint(void)" (?calculateVectorsForEveryIntegrationPoint@Grid@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl Grid::calculateJacobianForEveryElement(void)" (?calculateJacobianForEveryElement@Grid@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl Grid::showDetailedGrid(void)" (?showDetailedGrid@Grid@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl Grid::showGrid(void)" (?showGrid@Grid@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl Grid::showElement(int)" (?showElement@Grid@@QEAAXH@Z) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl Grid::showNode(int)" (?showNode@Grid@@QEAAXH@Z) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: __cdecl Grid::Grid(void)" (??0Grid@@QEAA@XZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl GlobalData::showData(void)" (?showData@GlobalData@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: __cdecl GlobalData::GlobalData(void)" (??0GlobalData@@QEAA@XZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: __cdecl Element::Element(void)" (??0Element@@QEAA@XZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl UniversalElement::showdNdEtaDerivativeMatrix(void)" (?showdNdEtaDerivativeMatrix@UniversalElement@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl UniversalElement::showdNdKsiDerivativeMatrix(void)" (?showdNdKsiDerivativeMatrix@UniversalElement@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: void __cdecl UniversalElement::showShapeFunctionsMatrix(void)" (?showShapeFunctionsMatrix@UniversalElement@@QEAAXXZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: __cdecl UniversalElement::UniversalElement(void)" (??0UniversalElement@@QEAA@XZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+BiankaDudaProjektMES.obj : error LNK2005: Element "public: __cdecl Node::Node(void)" (??0Node@@QEAA@XZ) jest już zdefiniowany w elemencie BiankaDudaProjektMES.obj
+C:\Users\HP\Desktop\BiankaDudaProjektMES\x64\Release\BiankaDudaProjektMES.exe : fatal error LNK1169: znaleziono co najmniej jeden wielokrotnie zdefiniowany symbol

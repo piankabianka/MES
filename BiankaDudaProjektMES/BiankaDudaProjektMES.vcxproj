@@ -150,7 +150,6 @@
     <ClInclude Include="Element.h" />
     <ClInclude Include="GlobalData.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="Jacobian.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Nagłówek.h" />
     <ClInclude Include="Node.h" />
@@ -160,12 +159,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BiankaDudaProjektMES.cpp" />
+    <ClCompile Include="Element.cpp" />
+    <ClCompile Include="GlobalData.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UniversalElement.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

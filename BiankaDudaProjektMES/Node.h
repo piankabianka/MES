@@ -11,11 +11,3 @@ struct Node {
 	int t;
 	Node();
 };
-
-Node::Node() {
-	x = 0;
-	y = 0;
-	nodeID = 0;
-	BC = false;
-	t = 0;
-}
