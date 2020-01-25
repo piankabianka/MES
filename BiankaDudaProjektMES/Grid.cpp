@@ -104,29 +104,8 @@ void Grid::showDetailedGrid() {
 
 void Grid::calculateJacobianForEveryElement() {
 
-	double tabX[4];
-	double tabY[4];
-
-	for (int i = 0; i < 4; i++) {
-		if (i == 0) {
-			tabX[i] = 0;
-			tabY[i] = 0;
-		}
-		if (i == 1) {
-			tabX[i] = 0.025;
-			tabY[i] = 0;
-		}
-		if (i == 2) {
-			tabX[i] = 0.025;
-			tabY[i] = 0.025;
-		}
-		if (i == 3) {
-			tabX[i] = 0;
-			tabY[i] = 0.025;
-		}
-	}
-
-
+	double tabX[4] = {0, 0.025, 0.025, 0};
+	double tabY[4] = { 0, 0, 0.025, 0.025};
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -252,6 +231,7 @@ void Grid::calculateMatrixH() {
 		cout << endl;
 	}
 }
+
 void Grid::calculateMatrixC() {
 	double p1Matrix[4][4];
 	double p2Matrix[4][4];
@@ -276,4 +256,84 @@ void Grid::calculateMatrixC() {
 		}
 		cout << endl;
 	}
+}
+
+void Grid::calculateBorderConditionMatrix() {
+	
+	UniversalElement uE;
+	double localBorderMatrix[4][4]{ 0 };
+	
+	int number = 1;
+	double tabX[4];
+	double tabY[4];
+	int bc[4];
+	double J = 0;
+	GlobalData gD;
+	double dx=gD.dx;
+	double dy=gD.dy;
+	for (int i = 0; i < 4; i++) {
+		tabX[i] = nodesTab[elementsTab[number - 1].nodesIDtab[i] - 1].x;
+		tabY[i] = nodesTab[elementsTab[number - 1].nodesIDtab[i] - 1].y;
+		bc[i] = nodesTab[elementsTab[number - 1].nodesIDtab[i] - 1].BC;
+		
+	}
+	
+	if (bc[0] == 1 && bc[1] == 1) {
+		J = dx / 2;
+		localBorderMatrix[0][0] += uE.calculateshapeFunctionMatrixValue(1, -1/sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(1, -1 / sqrt(3), -1)*J*convection;
+		localBorderMatrix[0][1] += uE.calculateshapeFunctionMatrixValue(1, -1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(2, -1 / sqrt(3), -1)*J*convection;
+		localBorderMatrix[1][0] += uE.calculateshapeFunctionMatrixValue(2, -1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(1, -1 / sqrt(3), -1)*J*convection;
+		localBorderMatrix[1][1] += uE.calculateshapeFunctionMatrixValue(2,- 1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(2, -1 / sqrt(3), -1)*J*convection;
+
+		localBorderMatrix[0][0] += uE.calculateshapeFunctionMatrixValue(1, 1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(1, 1 / sqrt(3), -1)*J*convection;
+		localBorderMatrix[0][1] += uE.calculateshapeFunctionMatrixValue(1, 1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(2,1 / sqrt(3), -1)*J*convection;
+		localBorderMatrix[1][0] += uE.calculateshapeFunctionMatrixValue(2, 1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(1,1 / sqrt(3), -1)*J*convection;
+		localBorderMatrix[1][1] += uE.calculateshapeFunctionMatrixValue(2, 1 / sqrt(3), -1)*uE.calculateshapeFunctionMatrixValue(2,1 / sqrt(3), -1)*J*convection;
+	}
+
+	if (bc[1] == 1 && bc[2] == 1) {
+		J = dy / 2;
+		localBorderMatrix[1][1] += uE.calculateshapeFunctionMatrixValue(2, 1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(2, 1, -1 / sqrt(3))*J*convection;
+		localBorderMatrix[1][2] += uE.calculateshapeFunctionMatrixValue(2, 1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(3, 1, -1 / sqrt(3))*J*convection;
+		localBorderMatrix[2][1] += uE.calculateshapeFunctionMatrixValue(3, 1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(2, 1, -1 / sqrt(3))*J*convection;
+		localBorderMatrix[2][2] += uE.calculateshapeFunctionMatrixValue(3, 1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(3, 1, -1 / sqrt(3))*J*convection;
+
+		localBorderMatrix[1][1] += uE.calculateshapeFunctionMatrixValue(2, 1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(2, 1, 1 / sqrt(3))*J*convection;
+		localBorderMatrix[1][2] += uE.calculateshapeFunctionMatrixValue(2, 1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(3, 1, 1 / sqrt(3))*J*convection;
+		localBorderMatrix[2][1] += uE.calculateshapeFunctionMatrixValue(3, 1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(2, 1, 1 / sqrt(3))*J*convection;
+		localBorderMatrix[2][2] += uE.calculateshapeFunctionMatrixValue(3, 1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(3, 1, 1 / sqrt(3))*J*convection;
+	}
+
+	if (bc[2] == 1 && bc[3] == 1) {
+		J = dx / 2;
+		localBorderMatrix[2][2] += uE.calculateshapeFunctionMatrixValue(3, 1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(3, 1 / sqrt(3), 1)*J*convection;
+		localBorderMatrix[2][3] += uE.calculateshapeFunctionMatrixValue(3, 1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(4, 1 / sqrt(3), 1)*J*convection;
+		localBorderMatrix[3][2] += uE.calculateshapeFunctionMatrixValue(4, 1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(3, 1 / sqrt(3), 1)*J*convection;
+		localBorderMatrix[3][3] += uE.calculateshapeFunctionMatrixValue(4,1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(4, 1 / sqrt(3), 1)*J*convection;
+
+		localBorderMatrix[2][2] += uE.calculateshapeFunctionMatrixValue(3, -1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(3,- 1 / sqrt(3), 1)*J*convection;
+		localBorderMatrix[2][3] += uE.calculateshapeFunctionMatrixValue(3, -1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(4, -1 / sqrt(3), 1)*J*convection;
+		localBorderMatrix[3][2] += uE.calculateshapeFunctionMatrixValue(4, -1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(3, -1 / sqrt(3), 1)*J*convection;
+		localBorderMatrix[3][3] += uE.calculateshapeFunctionMatrixValue(4, -1 / sqrt(3), 1)*uE.calculateshapeFunctionMatrixValue(4, -1 / sqrt(3), 1)*J*convection;
+	}
+	if (bc[3] == 1 && bc[0] == 1) {
+		J = dy / 2;
+		localBorderMatrix[0][0] += uE.calculateshapeFunctionMatrixValue(1, -1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(1, -1, 1 / sqrt(3))*J*convection;
+		localBorderMatrix[0][3] += uE.calculateshapeFunctionMatrixValue(1, -1, 1 / sqrt(3))* uE.calculateshapeFunctionMatrixValue(4, -1, 1 / sqrt(3))*J*convection;
+		localBorderMatrix[3][0] += uE.calculateshapeFunctionMatrixValue(4, -1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(1, -1,1 / sqrt(3))*J*convection;
+		localBorderMatrix[3][3] += uE.calculateshapeFunctionMatrixValue(4, -1, 1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(4, -1,1 / sqrt(3))*J*convection;
+
+		localBorderMatrix[0][0] += uE.calculateshapeFunctionMatrixValue(1, -1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(1, -1, -1 / sqrt(3))*J*convection;
+		localBorderMatrix[0][3] += uE.calculateshapeFunctionMatrixValue(1, -1, -1 / sqrt(3))* uE.calculateshapeFunctionMatrixValue(4, -1, -1 / sqrt(3))*J*convection;
+		localBorderMatrix[3][0] += uE.calculateshapeFunctionMatrixValue(4, -1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(1, -1, -1 / sqrt(3))*J*convection;
+		localBorderMatrix[3][3] += uE.calculateshapeFunctionMatrixValue(4, -1, -1 / sqrt(3))*uE.calculateshapeFunctionMatrixValue(4, -1, -1 / sqrt(3))*J*convection;
+	}
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			cout << localBorderMatrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
+	
 }

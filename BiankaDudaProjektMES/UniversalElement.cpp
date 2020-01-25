@@ -48,6 +48,22 @@ UniversalElement::UniversalElement() {
 
 }
 
+double UniversalElement::calculateshapeFunctionMatrixValue(int number, double ksi, double eta) {
+	if (number == 1) {
+		return (0.25 * (1 - ksi) * (1 - eta));
+		
+	}
+	if (number == 2) {
+		return (0.25 * (1 + ksi) * (1 - eta));
+	}
+	if (number == 3) {
+		return (0.25 * (1 + ksi) * (1 + eta));
+	}
+	if (number == 4) {
+		return (0.25 * (1 - ksi) * (1 + eta));
+	}
+}
+
 void UniversalElement::showShapeFunctionsMatrix() {
 	cout << "----------------------------" << endl;
 	cout << "SHAPE FUNCTION MATRIX:\n" << endl;

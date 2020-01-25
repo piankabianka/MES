@@ -17,6 +17,8 @@ struct UniversalElement {
 	void showShapeFunctionsMatrix();
 	void showdNdKsiDerivativeMatrix();
 	void showdNdEtaDerivativeMatrix();
+
+	double calculateshapeFunctionMatrixValue(int number, double ksi, double eta);
 	
 	UniversalElement();
 };
