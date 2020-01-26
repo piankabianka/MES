@@ -21,8 +21,8 @@ GlobalData::GlobalData() {
 		totalNodesNumber = nodesNumberH * nodesNumberW;
 		totalElementNumber = (nodesNumberH - 1)*(nodesNumberW - 1);
 
-		dx = (W / (nodesNumberW ));
-		dy = (H / (nodesNumberH ));
+		dx = (W / (nodesNumberW -1));
+		dy = (H / (nodesNumberH -1));
 
 	}
 
