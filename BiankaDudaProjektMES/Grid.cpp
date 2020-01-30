@@ -568,12 +568,27 @@ void Grid::calculateSolution() {
 			}
 			std::cout << endl;
 		}*/
+		double max = 100;
+		double min = 1000;
 
 		Gauss(calculationsMatrix, t0Vector, size);
-		for (int i = 0; i < size; i++) {
+		//std::cout << "Wektor temperatur po uplywie "<<k+1 <<" sekund:"<< endl;
+		/*for (int i = 0; i < size; i++) {
 			cout << t0Vector[i] << "\t";
+		}*/
+		for (int i = 0; i < size; i++) {
+			if (t0Vector[i] > max) {
+				max = t0Vector[i];
+			}
+			if (t0Vector[i] < min) {
+				min = t0Vector[i];
+			}
 		}
-		cout << endl;
+		if (k == 0 || k == 4 || k == 9 ||k==14 || k == 19) {
+			std::cout << "Wektor temperatur po uplywie " << k + 1 << " sekund:" << endl;
+
+			cout << "\tWartosc minimalna: " << min << "\tWartosc maksymalna: " << max << endl;
+		}
 
 	}
 }
@@ -631,9 +646,9 @@ void Gauss(double**macierz, double*X, int n)
 		}
 	}
 
-	std::cout << endl;
-	std::cout << "ROZWIAZANIA: " << endl;
-	std::cout << endl;
+	//std::cout << endl;
+	
+	//std::cout << endl;
 
 	for (int i = n - 1; i >= 0; i--)
 	{
